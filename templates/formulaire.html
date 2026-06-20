@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Nouveau projet - Super Student AI{% endblock %}
+
+{% block content %}
+<section class="form-section">
+    <h1>Décris ton projet</h1>
+
+    <p class="subtitle">
+        Plus ta description est précise, plus l'analyse générée sera pertinente.
+    </p>
+
+    <form method="POST" action="{{ url_for('formulaire') }}" class="card-form">
+        <div class="form-group">
+            <label for="nom_projet">Nom du projet *</label>
+            <input
+                type="text"
+                id="nom_projet"
+                name="nom_projet"
+                placeholder="Ex : Super Student AI"
+                value="{{ nom_projet or '' }}"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description du projet *</label>
+            <textarea
+                id="description"
+                name="description"
+                rows="6"
+                placeholder="Décris le contexte, les objectifs, les fonctionnalités principales, les technologies envisagées..."
+                required
+            >{{ description or '' }}</textarea>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="duree">Durée disponible</label>
+                <select id="duree" name="duree">
+                    <option value="" {% if not duree %}selected{% endif %}>-- Sélectionner --</option>
+                    <option value="2 semaines" {% if duree == '2 semaines' %}selected{% endif %}>2 semaines</option>
+                    <option value="3 semaines" {% if duree == '3 semaines' %}selected{% endif %}>3 semaines</option>
+                    <option value="1 mois" {% if duree == '1 mois' %}selected{% endif %}>1 mois</option>
+                    <option value="2 mois" {% if duree == '2 mois' %}selected{% endif %}>2 mois</option>
+                    <option value="3 mois" {% if duree == '3 mois' %}selected{% endif %}>3 mois</option>
+                    <option value="1 semestre" {% if duree == '1 semestre' %}selected{% endif %}>1 semestre</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="contraintes">Contraintes particulières</label>
+                <input
+                    type="text"
+                    id="contraintes"
+                    name="contraintes"
+                    placeholder="Ex : équipe de 4, peu de temps, technologies imposées..."
+                    value="{{ contraintes or '' }}"
+                >
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="submit-btn">
+            <span class="btn-text">Lancer l'analyse</span>
+            <span class="btn-spinner" hidden></span>
+        </button>
+    </form>
+</section>
+{% endblock %}

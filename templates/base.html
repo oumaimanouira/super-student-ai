@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Super Student AI{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="navbar-inner">
+            <a href="{{ url_for('index') }}" class="logo">
+                <span class="logo-icon">🎓</span>
+                <span>Super Student <strong>AI</strong></span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="{{ url_for('index') }}" class="{{ 'active' if request.path == '/' else '' }}">Accueil</a>
+                <a href="{{ url_for('formulaire') }}" class="{{ 'active' if request.path == '/formulaire' else '' }}">Nouveau projet</a>
+                <a href="{{ url_for('historique') }}" class="{{ 'active' if request.path == '/historique' else '' }}">Historique</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>Super Student AI &mdash; Assistant intelligent de gestion de projet étudiant</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

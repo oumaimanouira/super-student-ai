@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% block title %}Résultats - {{ projet['nom_projet'] }}{% endblock %}
+
+{% block content %}
+<section class="results-header">
+    <h1>{{ projet['nom_projet'] }}</h1>
+    <p class="meta">Analysé le {{ projet['date_creation'] }}</p>
+
+    <div class="meta-tags">
+        {% if projet['duree'] %}
+            <span class="tag">⏱ {{ projet['duree'] }}</span>
+        {% endif %}
+
+        {% if projet['contraintes'] %}
+            <span class="tag">⚙ {{ projet['contraintes'] }}</span>
+        {% endif %}
+    </div>
+</section>
+
+{% if resultat.complexite %}
+<section class="result-block">
+    <h2>📊 Complexité du projet</h2>
+
+    <div class="card complexity-card">
+        <div class="complexity-score">
+            <span class="score-number">{{ resultat.complexite.score }}/10</span>
+            <span class="score-label">Niveau : {{ resultat.complexite.niveau }}</span>
+        </div>
+
+        <p>{{ resultat.complexite.justification }}</p>
+    </div>
+</section>
+{% endif %}
+
+<section class="result-block">
+    <h2>🔍 Analyse automatique</h2>
+    <div class="card">
+        <p>{{ resultat.analyse }}</p>
+    </div>
+</section>
+
+<section class="result-block">
+    <h2>✅ Génération des tâches</h2>
+
+    {% if resultat.taches %}
+    <div class="card table-card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Tâche</th>
+                    <th>Description</th>
+                    <th>Priorité</th>
+                    <th>Durée estimée</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for tache in resultat.taches %}
+                <tr>
+                    <td><strong>{{ tache.nom }}</strong></td>
+                    <td>{{ tache.description }}</td>
+                    <td>
+                        <span class="badge badge-{{ tache.priorite | lower | replace('é', 'e') }}">
+                            {{ tache.priorite }}
+                        </span>
+                    </td>
+                    <td>{{ tache.duree_estimee }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="empty">Aucune tâche générée.</p>
+    {% endif %}
+</section>
+
+<section class="result-block">
+    <h2>🗓️ Planning simplifié</h2>
+
+    {% if resultat.planning %}
+    <div class="planning-grid">
+        {% for semaine in resultat.planning %}
+        <div class="planning-card">
+            <div class="planning-week">Semaine {{ semaine.semaine }}</div>
+            <h4>{{ semaine.titre }}</h4>
+
+            <ul>
+                {% for tache in semaine.taches %}
+                <li>{{ tache }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="empty">Aucun planning généré.</p>
+    {% endif %}
+</section>
+
+<section class="result-block">
+    <h2>⚠️ Analyse des risques</h2>
+
+    {% if resultat.risques %}
+    <div class="card table-card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Risque</th>
+                    <th>Impact</th>
+                    <th>Probabilité</th>
+                    <th>Mitigation</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for risque in resultat.risques %}
+                <tr>
+                    <td>{{ risque.risque }}</td>
+                    <td>
+                        <span class="badge badge-{{ risque.impact | lower | replace('é', 'e') }}">
+                            {{ risque.impact }}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge badge-{{ risque.probabilite | lower | replace('é', 'e') }}">
+                            {{ risque.probabilite }}
+                        </span>
+                    </td>
+                    <td>{{ risque.mitigation }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="empty">Aucun risque identifié.</p>
+    {% endif %}
+</section>
+
+<section class="result-block">
+    <h2>💬 Feedback intelligent</h2>
+    <div class="card card-feedback">
+        <p>{{ resultat.feedback }}</p>
+    </div>
+</section>
+
+<div class="actions">
+    <a href="{{ url_for('formulaire') }}" class="btn btn-secondary">Nouvelle analyse</a>
+    <a href="{{ url_for('historique') }}" class="btn btn-primary">Voir l'historique</a>
+</div>
+{% endblock %}

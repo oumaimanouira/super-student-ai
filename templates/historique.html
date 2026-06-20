@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Historique - Super Student AI{% endblock %}
+
+{% block content %}
+<section class="form-section">
+    <h1>Historique des analyses</h1>
+    <p class="subtitle">Retrouve ici tous les projets que tu as déjà analysés.</p>
+
+    {% if projets %}
+    <div class="card table-card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Projet</th>
+                    <th>Durée</th>
+                    <th>Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for projet in projets %}
+                <tr>
+                    <td><strong>{{ projet['nom_projet'] }}</strong></td>
+                    <td>{{ projet['duree'] or '—' }}</td>
+                    <td>{{ projet['date_creation'] }}</td>
+                    <td class="actions-cell">
+                        <a href="{{ url_for('resultats', projet_id=projet['id']) }}" class="btn btn-small btn-primary">Voir</a>
+
+                        <form method="POST" action="{{ url_for('supprimer_projet', projet_id=projet['id']) }}" onsubmit="return confirm('Supprimer ce projet de l\'historique ?');">
+                            <button type="submit" class="btn btn-small btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% else %}
+    <div class="card empty-state">
+        <p>Aucun projet analysé pour le moment.</p>
+        <a href="{{ url_for('formulaire') }}" class="btn btn-primary">Analyser un projet</a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}
