@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Inscription - Super Student AI{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+    <div class="auth-card">
+        <h1>Créer un compte</h1>
+        <p class="subtitle">Inscrivez-vous pour commencer à analyser vos projets</p>
+
+        <form method="POST" action="{{ url_for('register') }}" class="card-form auth-form">
+            <div class="form-group">
+                <label for="nom">Nom complet *</label>
+                <input
+                    type="text"
+                    id="nom"
+                    name="nom"
+                    placeholder="Ex : Jean Dupont"
+                    value="{{ nom or '' }}"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="email">Adresse email *</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="exemple@edu.ece.fr"
+                    value="{{ email or '' }}"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe *</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Minimum 6 caractères"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Confirmer le mot de passe *</label>
+                <input
+                    type="password"
+                    id="confirm_password"
+                    name="confirm_password"
+                    placeholder="Confirme ton mot de passe"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+                Créer mon compte
+            </button>
+        </form>
+
+        <p class="auth-switch">
+            Déjà un compte ?
+            <a href="{{ url_for('login') }}">Se connecter</a>
+        </p>
+    </div>
+</section>
+{% endblock %}

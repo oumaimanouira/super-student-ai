@@ -19,10 +19,18 @@
             </a>
 
             <nav class="nav-links">
-                <a href="{{ url_for('index') }}" class="{{ 'active' if request.path == '/' else '' }}">Accueil</a>
-                <a href="{{ url_for('formulaire') }}" class="{{ 'active' if request.path == '/formulaire' else '' }}">Nouveau projet</a>
-                <a href="{{ url_for('historique') }}" class="{{ 'active' if request.path == '/historique' else '' }}">Historique</a>
-            </nav>
+    <a href="{{ url_for('index') }}" class="{{ 'active' if request.path == '/' else '' }}">Accueil</a>
+
+    {% if session.get('user_id') %}
+        <a href="{{ url_for('formulaire') }}" class="{{ 'active' if request.path == '/formulaire' else '' }}">Nouveau projet</a>
+        <a href="{{ url_for('historique') }}" class="{{ 'active' if request.path == '/historique' else '' }}">Historique</a>
+        <span class="nav-user">👤 {{ session.get('user_nom') }}</span>
+        <a href="{{ url_for('logout') }}" class="logout-link">Déconnexion</a>
+    {% else %}
+        <a href="{{ url_for('login') }}" class="{{ 'active' if request.path == '/connexion' else '' }}">Connexion</a>
+        <a href="{{ url_for('register') }}" class="{{ 'active' if request.path == '/inscription' else '' }}">Inscription</a>
+    {% endif %}
+</nav>
         </div>
     </header>
 

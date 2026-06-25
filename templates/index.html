@@ -12,8 +12,13 @@
             l'intelligence artificielle.
         </p>
 
-        <a href="{{ url_for('formulaire') }}" class="btn btn-primary">Analyser mon projet</a>
-        <a href="{{ url_for('historique') }}" class="btn btn-secondary">Voir l'historique</a>
+        {% if session.get('user_id') %}
+    <a href="{{ url_for('formulaire') }}" class="btn btn-primary">Analyser mon projet</a>
+    <a href="{{ url_for('historique') }}" class="btn btn-secondary">Voir l'historique</a>
+{% else %}
+    <a href="{{ url_for('register') }}" class="btn btn-primary">Créer un compte</a>
+    <a href="{{ url_for('login') }}" class="btn btn-secondary">Se connecter</a>
+{% endif %}
     </div>
 
     <div class="hero-card">
@@ -38,37 +43,37 @@
         <div class="feature-card">
             <div class="feature-icon">🔍</div>
             <h3>Analyse automatique</h3>
-            <p>Le système analyse la description de ton projet et identifie les objectifs, la complexité et les points clés.</p>
+            <p>Le système analyse la description de ton projet et identifie les objectifs, la complexité et les points clés</p>
         </div>
 
         <div class="feature-card">
             <div class="feature-icon">✅</div>
             <h3>Génération des tâches</h3>
-            <p>Une liste de tâches concrètes est générée automatiquement avec priorité et durée estimée.</p>
+            <p>Une liste de tâches concrètes est générée automatiquement avec priorité et durée estimée</p>
         </div>
 
         <div class="feature-card">
             <div class="feature-icon">🗓️</div>
             <h3>Planning simplifié</h3>
-            <p>Les tâches sont organisées semaine par semaine pour un suivi simple et efficace.</p>
+            <p>Les tâches sont organisées semaine par semaine pour un suivi simple et efficace</p>
         </div>
 
         <div class="feature-card">
             <div class="feature-icon">⚠️</div>
             <h3>Analyse des risques</h3>
-            <p>Identifie les risques potentiels du projet, leur impact et des actions pour les réduire.</p>
+            <p>Identifie les risques potentiels du projet, leur impact et des actions pour les réduire</p>
         </div>
 
         <div class="feature-card">
             <div class="feature-icon">💬</div>
             <h3>Feedback intelligent</h3>
-            <p>Reçois des conseils personnalisés et encourageants pour améliorer ton projet.</p>
+            <p>Reçois des conseils personnalisés et encourageants pour améliorer ton projet</p>
         </div>
 
         <div class="feature-card">
             <div class="feature-icon">📚</div>
             <h3>Historique</h3>
-            <p>Retrouve toutes tes analyses précédentes à tout moment dans une page dédiée.</p>
+            <p>Retrouve toutes tes analyses précédentes à tout moment dans une page dédiée</p>
         </div>
     </div>
 </section>
