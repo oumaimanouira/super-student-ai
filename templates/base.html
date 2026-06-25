@@ -6,6 +6,7 @@
     <title>{% block title %}Super Student AI{% endblock %}</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
@@ -14,9 +15,11 @@
     <header class="navbar">
         <div class="navbar-inner">
             <a href="{{ url_for('index') }}" class="logo">
-                <span class="logo-icon">🎓</span>
-                <span>Super Student <strong>AI</strong></span>
-            </a>
+    <span class="logo-icon">
+        <i class="fa-solid fa-graduation-cap"></i>
+    </span>
+    <span>Super Student <strong>AI</strong></span>
+</a>
 
             <nav class="nav-links">
     <a href="{{ url_for('index') }}" class="{{ 'active' if request.path == '/' else '' }}">Accueil</a>
@@ -24,7 +27,10 @@
     {% if session.get('user_id') %}
         <a href="{{ url_for('formulaire') }}" class="{{ 'active' if request.path == '/formulaire' else '' }}">Nouveau projet</a>
         <a href="{{ url_for('historique') }}" class="{{ 'active' if request.path == '/historique' else '' }}">Historique</a>
-        <span class="nav-user">👤 {{ session.get('user_nom') }}</span>
+        <span class="nav-user">
+    <i class="fa-solid fa-circle-user"></i>
+    {{ session.get('user_nom') }}
+</span>
         <a href="{{ url_for('logout') }}" class="logout-link">Déconnexion</a>
     {% else %}
         <a href="{{ url_for('login') }}" class="{{ 'active' if request.path == '/connexion' else '' }}">Connexion</a>
